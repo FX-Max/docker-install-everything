@@ -5,6 +5,10 @@
 
 ## 支持列表
 
+- beanstalkd
+
+    简要说明: 高性能，轻量级的分布式内存队列。
+
 - wikijs
 
     简要说明： 自建开源的wiki/文档管理系统 wiki.js，[官网](https://js.wiki/)

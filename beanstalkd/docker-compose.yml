@@ -1,0 +1,20 @@
+version: "3"
+services:
+  beanstalkd:
+    image: schickling/beanstalkd
+    container_name: beanstalkd
+    ports:
+      - 11300:11300
+    volumes:
+      - ./data/beanstalk:/data # binlog日志存储
+    command: "-p 11300 -b /data"
+
+  beanstalkd-console:
+    image: schickling/beanstalkd-console
+    container_name: beanstalkd-console
+    ports:
+      - 2080:2080
+    environment:
+      BEANSTALKD_PORT_11300_TCP_ADDR: beanstalkd
+    links:
+      - beanstalkd

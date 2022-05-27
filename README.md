@@ -16,6 +16,10 @@
 git clone https://github.com/FX-Max/docker-install-everything.git
 cd docker-install-everything
 # 进入里想要安装的服务文件夹后，按照文件夹内的 README 文件介绍使用。
+# 以安装 redis 为例：
+cd redis
+# 根据目录下 README 中的说明操作即可
+docker-compose up -d redis
 ```
 
 ## 支持列表
@@ -23,6 +27,10 @@ cd docker-install-everything
 - beanstalkd
 
     简要说明: 高性能，轻量级的分布式内存队列。
+
+- redis
+
+    简要说明: 快速搭建 redis 服务。
 
 - wikijs
 

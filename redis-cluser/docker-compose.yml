@@ -1,0 +1,144 @@
+version: '3'
+services:
+
+  redis-server-master:
+    image: redis:6.2-alpine
+    container_name: redis-server-master
+    ports:
+      - ${PORT_SERVER_MASTER}:6379
+#    restart: always
+    environment:
+      TZ: ${TIMEZONE}
+    volumes:
+      - ./conf/redis-master.conf:/usr/local/etc/redis/redis.conf
+      - ./data/redis-master:/data
+    sysctls:
+      net.core.somaxconn: '511'
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    networks:
+      net-redis-server:
+        ipv4_address: ${IP_SERVER_MASTER}
+
+  redis-server-slave-1:
+    image: redis:6.2-alpine
+    container_name: redis-server-slave-1
+    ports:
+      - ${PORT_SERVER_SLAVE_1}:6379
+#    restart: always
+    depends_on:
+      - redis-server-master
+    environment:
+      TZ: ${TIMEZONE}
+    volumes:
+      - ./conf/redis-slave1.conf:/usr/local/etc/redis/redis.conf
+      - ./data/redis-slave-1:/data
+    sysctls:
+      net.core.somaxconn: '511'
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    networks:
+      net-redis-server:
+        ipv4_address: ${IP_SERVER_SLAVE_1}
+
+  redis-server-slave-2:
+    image: redis:6.2-alpine
+    container_name: redis-server-slave-2
+    ports:
+      - ${PORT_SERVER_SLAVE_2}:6379
+#    restart: always
+    depends_on:
+      - redis-server-master
+    environment:
+      TZ: ${TIMEZONE}
+    volumes:
+      - ./conf/redis-slave2.conf:/usr/local/etc/redis/redis.conf
+      - ./data/redis-slave-2:/data
+    sysctls:
+      net.core.somaxconn: '511'
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    networks:
+      net-redis-server:
+        ipv4_address: ${IP_SERVER_SLAVE_2}
+
+  redis-server-slave-3:
+    image: redis:6.2-alpine
+    container_name: redis-server-slave-3
+    ports:
+      - ${PORT_SERVER_SLAVE_3}:6379
+#    restart: always
+    depends_on:
+      - redis-server-master
+    environment:
+      TZ: ${TIMEZONE}
+    volumes:
+      - ./conf/redis-slave3.conf:/usr/local/etc/redis/redis.conf
+      - ./data/redis-slave-3:/data
+    sysctls:
+      net.core.somaxconn: '511'
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    networks:
+      net-redis-server:
+        ipv4_address: ${IP_SERVER_SLAVE_3}
+
+  redis-server-sentinel-1:
+    image: redis:6.2-alpine
+    container_name: redis-server-sentinel-1
+    ports:
+      - ${PORT_SERVER_SENTINEL_1}:26379
+#    restart: always
+    depends_on:
+      - redis-server-master
+    environment:
+      TZ: ${TIMEZONE}
+    volumes:
+      - ./conf/redis-sentinel1.conf:/usr/local/etc/redis/sentinel.conf
+    sysctls:
+      net.core.somaxconn: '511'
+    command: ["redis-sentinel","/usr/local/etc/redis/sentinel.conf"]
+    networks:
+      net-redis-server:
+        ipv4_address: ${IP_SERVER_SENTINEL_1}
+
+  redis-server-sentinel-2:
+    image: redis:6.2-alpine
+    container_name: redis-server-sentinel-2
+    ports:
+      - ${PORT_SERVER_SENTINEL_2}:26379
+#    restart: always
+    depends_on:
+      - redis-server-master
+    environment:
+      TZ: ${TIMEZONE}
+    volumes:
+      - ./conf/redis-sentinel2.conf:/usr/local/etc/redis/sentinel.conf
+    command: ["redis-sentinel","/usr/local/etc/redis/sentinel.conf"]
+    sysctls:
+      net.core.somaxconn: '511' 
+    networks:
+      net-redis-server:
+        ipv4_address: ${IP_SERVER_SENTINEL_2}
+
+  redis-server-sentinel-3:
+    image: redis:6.2-alpine
+    container_name: redis-server-sentinel-3
+    ports:
+      - ${PORT_SERVER_SENTINEL_3}:26379
+#    restart: always
+    depends_on:
+      - redis-server-master
+    environment:
+      TZ: ${TIMEZONE}
+    volumes:
+      - ./conf/redis-sentinel3.conf:/usr/local/etc/redis/sentinel.conf
+    sysctls: 
+      net.core.somaxconn: '511'
+    command: ["redis-sentinel","/usr/local/etc/redis/sentinel.conf"]
+    networks:
+      net-redis-server:
+        ipv4_address: ${IP_SERVER_SENTINEL_3}
+
+networks:
+    net-redis-server:
+      driver: bridge
+      ipam:
+        config:
+          - subnet: ${SUBNET}

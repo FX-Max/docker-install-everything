@@ -32,6 +32,10 @@ docker-compose up -d redis
 
     简要说明: 快速搭建 redis 服务。
 
+- redis-cluser
+
+    简要说明: 快速搭建 redis 集群服务，1主多从多哨兵。
+
 - wikijs
 
     简要说明： 自建开源的wiki/文档管理系统 wiki.js，[官网](https://js.wiki/)

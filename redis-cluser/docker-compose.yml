@@ -6,7 +6,7 @@ services:
     container_name: redis-server-master
     ports:
       - ${PORT_SERVER_MASTER}:6379
-#    restart: always
+    restart: always
     environment:
       TZ: ${TIMEZONE}
     volumes:
@@ -24,7 +24,7 @@ services:
     container_name: redis-server-slave-1
     ports:
       - ${PORT_SERVER_SLAVE_1}:6379
-#    restart: always
+    restart: always
     depends_on:
       - redis-server-master
     environment:
@@ -44,7 +44,7 @@ services:
     container_name: redis-server-slave-2
     ports:
       - ${PORT_SERVER_SLAVE_2}:6379
-#    restart: always
+    restart: always
     depends_on:
       - redis-server-master
     environment:
@@ -64,7 +64,7 @@ services:
     container_name: redis-server-slave-3
     ports:
       - ${PORT_SERVER_SLAVE_3}:6379
-#    restart: always
+    restart: always
     depends_on:
       - redis-server-master
     environment:
@@ -84,7 +84,7 @@ services:
     container_name: redis-server-sentinel-1
     ports:
       - ${PORT_SERVER_SENTINEL_1}:26379
-#    restart: always
+    restart: always
     depends_on:
       - redis-server-master
     environment:
@@ -103,7 +103,7 @@ services:
     container_name: redis-server-sentinel-2
     ports:
       - ${PORT_SERVER_SENTINEL_2}:26379
-#    restart: always
+    restart: always
     depends_on:
       - redis-server-master
     environment:
@@ -122,7 +122,7 @@ services:
     container_name: redis-server-sentinel-3
     ports:
       - ${PORT_SERVER_SENTINEL_3}:26379
-#    restart: always
+    restart: always
     depends_on:
       - redis-server-master
     environment:

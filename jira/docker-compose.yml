@@ -1,0 +1,52 @@
+version: '3'
+services:
+  jira-mysql:
+    image: mysql:5.7
+    container_name: jira-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
+      - MYSQL_DATABASE=jiradb
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - TZ=${MYSQL_TIMEZONE}
+    networks:
+      - net-jira
+    volumes:
+      - ./conf/mysql/my.cnf:/etc/mysql/conf.d/mysqld_jira.cnf
+      - ./data/mysql:/var/lib/mysql
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+  jira:
+    image: atlassian/jira-software
+    container_name: jira
+    hostname: jira
+    depends_on:
+      - jira-mysql
+    ports:
+      - "${WEB_PORT}:8080"
+    environment:
+      - JVM_MINIMUM_MEMORY=512m
+      - JVM_MAXIMUM_MEMORY=2048m
+      - ATL_PROXY_NAME=${ATL_PROXY_NAME}
+      - ATL_PROXY_PORT=443
+      - ATL_TOMCAT_SCHEME=https
+      - ATL_TOMCAT_SECURE=true
+    networks:
+      - net-jira
+    volumes:
+      - ./conf/mysql-connector-java-5.1.48.jar:/opt/atlassian/jira/lib/mysql-connector-java-5.1.48.jar
+      - ./data/jira:/var/atlassian/application-data/jira
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+networks:
+  net-jira:
+    name: net-jira
+    external: true

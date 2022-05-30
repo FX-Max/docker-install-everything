@@ -48,5 +48,8 @@ services:
 
 networks:
   net-jira:
-    name: net-jira
-    external: true
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${DOCKER_SUBNET}

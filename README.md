@@ -28,6 +28,10 @@ docker-compose up -d redis
 
     简要说明: 高性能，轻量级的分布式内存队列。
 
+- jira
+
+    简要说明: JIRA 是由 Atlassian 公司出品的，被业界公认为最好的项目管理和开发管理工具。
+
 - redis
 
     简要说明: 快速搭建 redis 服务。

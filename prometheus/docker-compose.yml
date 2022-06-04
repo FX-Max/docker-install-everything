@@ -1,0 +1,58 @@
+version: "3"
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    user: root
+#    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      #- ./conf/prometheus:/etc/prometheus
+      - ./data/prometheus/prometheus_db:/prometheus 
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    networks:
+      - net-prometheus
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    user: root
+#    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      #- ./conf/grafana:/etc/grafana
+      - ./data/prometheus/grafana_data:/var/lib/grafana
+    depends_on:  
+      - prometheus
+    networks:
+      - net-prometheus
+
+  pushgateway:
+    image: prom/pushgateway
+    container_name: pushgateway
+    user: root
+#    restart: always
+    ports:
+      - "9091:9091"
+    volumes:
+      - ./data/prometheus/pushgateway_data:/var/lib/pushgateway
+
+  alertmanager:
+    image: prom/alertmanager
+    hostname: alertmanager
+    container_name: alertmanager
+    user: root
+#    restart: always
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./data/prometheus/alertmanager_data:/var/lib/alertmanager
+
+networks:
+  net-prometheus:

@@ -36,7 +36,7 @@ docker-compose up -d redis
 
     简要说明: 基于 Golang 的一款开源的高性能分布式存储方案，兼容亚马逊S3云存储服务接口。本 docker 版本是单机版本。
 
-- MinIO-cluser
+- MinIO-cluster
 
     简要说明: MinIO 分布式集群版本。
 
@@ -44,7 +44,7 @@ docker-compose up -d redis
 
     简要说明: 快速搭建 redis 服务。
 
-- redis-cluser
+- redis-cluster
 
     简要说明: 快速搭建 redis 集群服务，1主多从多哨兵。
 

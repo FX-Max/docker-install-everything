@@ -5,8 +5,9 @@ services:
     container_name: minio
     ports:
       - ${PORT}:9000
-#    restart: always
+    restart: always
     environment:
+      TZ: ${TIMEZONE}
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
     volumes:

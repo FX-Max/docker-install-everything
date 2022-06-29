@@ -1,7 +1,7 @@
 # docker-install-everything
 
-> install all environments using docker.
-> 使用 docker 安装各种服务。
+> install all environments using docker-compose.
+> 使用 docker-compose 安装各种服务。
 
 ## 特色
 

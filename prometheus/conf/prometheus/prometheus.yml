@@ -1,0 +1,31 @@
+global:
+  scrape_interval:     5s
+  evaluation_interval: 5s
+
+  external_labels:
+      monitor: 'dashboard'
+
+alerting:
+ alertmanagers:
+ - static_configs:
+    - targets:
+        - "alertmanager:9093"
+
+rule_files:
+  #- 'alert.rules'
+
+scrape_configs:  
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['prometheus:9090']
+
+  - job_name: node
+    static_configs:
+      - targets: ['192.168.0.103:9100','pushgateway:9091']
+
+  - job_name: 'mysql-131'
+    static_configs:
+     - targets: ['192.168.0.131:9104']
+       labels:
+          instance: mysql

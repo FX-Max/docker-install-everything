@@ -52,6 +52,7 @@ services:
     ports:
       - "9093:9093"
     volumes:
+      - ./conf/alertmanager:/etc/alertmanager
       - ./data/prometheus/alertmanager_data:/var/lib/alertmanager
 
 networks:

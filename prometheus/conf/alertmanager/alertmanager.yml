@@ -1,0 +1,19 @@
+global:
+  resolve_timeout: 5m                               
+  smtp_smarthost: 'email-smtp.ap-southeast-1.amazonaws.com:465'        
+  smtp_from: '123@immaxfang.com'       
+  smtp_auth_username: 'demo'  
+  smtp_auth_password: '123456'
+  smtp_require_tls: false
+
+route:
+  group_by: ['alertname']    
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 10m
+  receiver: 'demoalert'
+
+receivers:
+  - name: 'demoalert'
+    email_configs:
+      - to: '999@immaxfang.com'

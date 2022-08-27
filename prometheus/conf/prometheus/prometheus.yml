@@ -9,7 +9,7 @@ alerting:
  alertmanagers:
  - static_configs:
     - targets:
-        - "alertmanager:9093"
+        - "192.168.0.100:9093"
 
 rule_files:
   - /etc/prometheus/rules/*.rules

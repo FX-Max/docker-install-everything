@@ -8,7 +8,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      #- ./conf/prometheus:/etc/prometheus
+      - ./conf/prometheus:/etc/prometheus
       - ./data/prometheus/prometheus_db:/prometheus 
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -52,6 +52,7 @@ services:
     ports:
       - "9093:9093"
     volumes:
+      - ./conf/alertmanager:/etc/alertmanager
       - ./data/prometheus/alertmanager_data:/var/lib/alertmanager
 
 networks:

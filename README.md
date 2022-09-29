@@ -60,6 +60,10 @@ docker-compose up -d redis
 
     简要说明: 快速搭建 wordpress 系统。
 
+- yapi
+
+    简要说明： [YApi](https://github.com/YMFE/yapi) 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台。
+
 - Yearning
 
 	简要说明： 基于 Go 的开箱即用的MYSQL SQL审核工具。[Yearning](https://github.com/cookieY/Yearning)

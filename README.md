@@ -28,6 +28,10 @@ docker-compose up -d redis
 
     简要说明: 高性能，轻量级的分布式内存队列。
 
+- elk
+
+    简要说明: 强大的日志收集和分析解决方案，Elasticsearch + Logstash + Kibana + Filebeat。
+
 - jira
 
     简要说明: JIRA 是由 Atlassian 公司出品的，被业界公认为最好的项目管理和开发管理工具。
@@ -56,5 +60,10 @@ docker-compose up -d redis
 
     简要说明: 快速搭建 wordpress 系统。
 
+- yapi
+
+    简要说明： [YApi](https://github.com/YMFE/yapi) 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台。
+
 - Yearning
+
 	简要说明： 基于 Go 的开箱即用的MYSQL SQL审核工具。[Yearning](https://github.com/cookieY/Yearning)

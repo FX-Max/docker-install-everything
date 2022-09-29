@@ -1,0 +1,103 @@
+version: "3"
+services:
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      net_elk:
+        ipv4_address: ${ZK_IP}
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    privileged: true
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KFAKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.197.121:9092 #宿主机IP
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data/kafka:/kafka
+    networks:
+      net_elk:
+        ipv4_address: ${KAFKA_IP}
+
+  logstash:
+    build:
+      ./logstash
+    container_name: logstash
+    privileged: true
+    environment:
+      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
+    depends_on:
+      - elasticsearch
+    networks:
+      net_elk:
+        ipv4_address: ${LOGSTASH_IP}
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    container_name: elasticsearch
+    privileged: true
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - "TAKE_FILE_OWNERSHIP=true"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
+      - ./log/elasticsearch:/usr/share/elasticsearch/logs
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      net_elk:
+        ipv4_address: ${ES_IP}
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.2
+    container_name: kibana
+    environment:
+      SERVER_HOST: 0.0.0.0
+      ELASTICSEARCH_HOSTS: http://${ES_IP}:9200
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    networks:
+      net_elk:
+        ipv4_address: ${KIBANA_IP}
+
+  filebeat:
+    build:
+      ./filebeat
+    container_name: filebeat
+    command: filebeat -e -strict.perms=false
+    user: root
+    privileged: true
+    volumes:
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./log/filebeat:/usr/share/filebeat/logs
+      - ./data/filebeat:/usr/share/filebeat/data
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - kibana
+    networks:
+      net_elk:
+        ipv4_address: ${FILEBEAT_IP}
+
+networks:
+  net_elk:
+    external: true

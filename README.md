@@ -24,6 +24,10 @@ docker-compose up -d redis
 
 ## 支持列表
 
+- apollo
+
+    简要说明： Apollo 是一款可靠的分布式配置管理中心，诞生于携程框架研发部，[Apollo](https://github.com/apolloconfig/apollo/)。
+
 - beanstalkd
 
     简要说明: 高性能，轻量级的分布式内存队列。

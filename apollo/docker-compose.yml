@@ -1,0 +1,72 @@
+version: '3'
+services:
+  apollo-configservice:
+    image: apolloconfig/apollo-configservice
+    container_name: apollo-configservice
+    ports:
+      - '8080:8080'
+    volumes:
+      - './log/apollo-configservice:/opt/logs'
+    networks:
+      - apollo
+    environment:
+      - TZ='Asia/Shanghai'
+      - >-
+        SPRING_DATASOURCE_URL=jdbc:mysql://apollo-db:3306/ApolloConfigDB?characterEncoding=utf8
+      - 'SPRING_DATASOURCE_USERNAME=${MYSQL_USER}'
+      - 'SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}'
+    depends_on:
+      - apollo-db
+  apollo-portal:
+    image: apolloconfig/apollo-portal
+    container_name: apollo-portal
+    ports:
+      - '8070:8070'
+    volumes:
+      - './log/apollo-portal:/opt/logs'
+    networks:
+      - apollo
+    environment:
+      - >-
+        SPRING_DATASOURCE_URL=jdbc:mysql://apollo-db:3306/ApolloPortalDB?characterEncoding=utf8
+      - 'SPRING_DATASOURCE_USERNAME=${MYSQL_USER}'
+      - 'SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}'
+      - 'DEV_META=http://apollo-configservice:8080'
+    depends_on:
+      - apollo-db
+  apollo-adminservice:
+    image: apolloconfig/apollo-adminservice
+    container_name: apollo-adminservice
+    ports:
+      - '8090:8090'
+    volumes:
+      - './log/apollo-adminservice:/opt/logs'
+    networks:
+      - apollo
+    environment:
+      - >-
+        SPRING_DATASOURCE_URL=jdbc:mysql://apollo-db:3306/ApolloConfigDB?characterEncoding=utf8
+      - 'SPRING_DATASOURCE_USERNAME=${MYSQL_USER}'
+      - 'SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}'
+    depends_on:
+      - apollo-db
+  apollo-db:
+    image: 'mysql:5.7'
+    container_name: apollo-db
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_DATABASE: '${MYSQL_DATABASE}'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+    ports:
+      - '3306:3306'
+    volumes:
+      - './sql:/docker-entrypoint-initdb.d'
+      - './data/mysql:/var/lib/mysql'
+    networks:
+      - apollo
+networks:
+  apollo:
+    external:
+      name: apollo

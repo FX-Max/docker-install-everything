@@ -3,7 +3,7 @@
 > install all environments using docker-compose.
 > 使用 docker-compose 安装各种服务。
 
-## 特色
+## 项目特色
 
 - 仅依赖 docker 和 docker-compose，无需本地复杂环境。
 - 支持软件和服务多，并且在持续新增。
@@ -79,3 +79,13 @@ docker-compose up -d redis
 - Yearning
 
 	简要说明： [Yearning](https://github.com/cookieY/Yearning)，基于 Go 的开箱即用的MYSQL SQL审核工具。
+
+
+## 欢迎加入
+
+- 如果在使用本项目的过程中发现了问题或有建议，欢迎交流提 issue。
+- 欢迎 fork 代码，不断改进优化。
+
+## 感谢关注
+
+如果项目对您有帮助，请帮忙点点小星星，谢谢。

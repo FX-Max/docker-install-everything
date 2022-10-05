@@ -30,7 +30,7 @@ docker-compose up -d redis
 
 - beanstalkd
 
-    简要说明: 高性能，轻量级的分布式内存队列。
+    简要说明: [beanstalkd](https://beanstalkd.github.io/)，高性能，轻量级的分布式内存队列。
 
 - elk
 
@@ -46,11 +46,11 @@ docker-compose up -d redis
 
 - MinIO
 
-    简要说明: 基于 Golang 的一款开源的高性能分布式存储方案，兼容亚马逊S3云存储服务接口。本 docker 版本是单机版本。
+    简要说明: [MinIO](https://github.com/minio/minio)，基于 Golang 的一款开源的高性能分布式存储方案，兼容亚马逊S3云存储服务接口。本 docker 版本是单机版本。
 
 - MinIO-cluster
 
-    简要说明: MinIO 分布式集群版本。
+    简要说明: [MinIO](https://github.com/minio/minio) 分布式集群版本。
 
 - mongo
 
@@ -58,19 +58,19 @@ docker-compose up -d redis
 
 - redis
 
-    简要说明: 快速搭建 redis 服务。
+    简要说明: 快速搭建 [redis](https://github.com/redis/redis) 服务。
 
 - redis-cluster
 
-    简要说明: 快速搭建 redis 集群服务，1主多从多哨兵。
+    简要说明: 快速搭建 [redis](https://github.com/redis/redis) 集群服务，1主多从多哨兵。
 
 - wikijs
 
-    简要说明： 自建开源的wiki/文档管理系统 wiki.js，[官网](https://js.wiki/)
+    简要说明： 自建开源的wiki/文档管理系统 [wiki.js](https://js.wiki/)。
 
 - wordpress
 
-    简要说明: 快速搭建 wordpress 系统。
+    简要说明: [wordpress](https://github.com/WordPress/WordPress)，最流行的免费建站系统。
 
 - yapi
 
@@ -78,4 +78,4 @@ docker-compose up -d redis
 
 - Yearning
 
-	简要说明： 基于 Go 的开箱即用的MYSQL SQL审核工具。[Yearning](https://github.com/cookieY/Yearning)
+	简要说明： [Yearning](https://github.com/cookieY/Yearning)，基于 Go 的开箱即用的MYSQL SQL审核工具。

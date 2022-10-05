@@ -52,6 +52,10 @@ docker-compose up -d redis
 
     简要说明: MinIO 分布式集群版本。
 
+- mongo
+
+    简要说明: [MongoDB](https://www.mongodb.com/) 是一个基于分布式文件存储的数据库。
+
 - redis
 
     简要说明: 快速搭建 redis 服务。

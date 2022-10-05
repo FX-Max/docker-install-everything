@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mongodb:
+    image: 'mongo:latest'
+    container_name: mongodb
+    ports:
+      - '${MONGO_PORT}:27017'
+    volumes:
+      - './data/mongodb:/data/db'
+      - './log/mongodb:/var/log/mongodb'
+      - './conf:/etc/mongo'
+    environment:
+      TZ='Asia/Shanghai'
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  jenkins:
+    image: 'jenkins/jenkins:lts'
+    container_name: jenkins
+#    restart: always
+    ports:
+      - '8080:8080'
+      - '50000:50000'
+    environment:
+     - JAVA_OPTS=-Djava.util.logging.config.file=/var/jenkins_home/log.properties
+     - TZ=Asia/Shanghai
+    volumes:
+      - './data/jenkins_home:/var/jenkins_home'

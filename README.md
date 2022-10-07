@@ -32,6 +32,10 @@ docker-compose up -d redis
 
     简要说明: [beanstalkd](https://beanstalkd.github.io/)，高性能，轻量级的分布式内存队列。
 
+- drawio
+
+    简要说明: [drawio](https://github.com/jgraph/drawio)是一款强大、免费的绘图工具。
+
 - elk
 
     简要说明: 强大的日志收集和分析解决方案，Elasticsearch + Logstash + Kibana + Filebeat。

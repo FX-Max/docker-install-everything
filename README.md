@@ -40,6 +40,10 @@ docker-compose up -d redis
 
     简要说明: [excalidraw](https://excalidraw.com/)，非常流行的画图工具，在线白板。
 
+- gitlab
+
+    简要说明: [gitlab](https://about.gitlab.com/)，非常流行的开源的Git代码仓库系统。
+
 - jenkins
 
     简要说明:  [jenkins](https://github.com/jenkinsci/jenkins) 是最流行的可扩展的持续集成引擎。

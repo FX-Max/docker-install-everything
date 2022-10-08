@@ -1,0 +1,13 @@
+version: '3'
+services:
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+#    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      - TZ='Asia/Shanghai'
+      - PMA_ARBITRARY=1
+    volumes:
+      - /sessions

@@ -72,6 +72,9 @@ docker-compose up -d redis
 
     简要说明: [MongoDB](https://www.mongodb.com/) 是一个基于分布式文件存储的数据库。
 
+- phpmyadmin
+    简要说明：[phpmyadmin](https://github.com/phpmyadmin/phpmyadmin) 是一款基于 Web 的 MySQL 数据库管理工具。
+
 - redis
 
     简要说明: 快速搭建 [redis](https://github.com/redis/redis) 服务。

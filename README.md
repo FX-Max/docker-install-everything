@@ -56,6 +56,10 @@ docker-compose up -d redis
 
     简要说明: JIRA 是由 Atlassian 公司出品的，被业界公认为最好的项目管理和开发管理工具。
 
+- jumpserver
+
+    简要说明: [JumpServer](https://github.com/jumpserver/jumpserver) 是广受欢迎的开源堡垒机。
+
 - Maxwell
 
     简要说明: [Maxwell](https://github.com/zendesk/maxwell)，一个能实时读取MySQL二进制日志Binlog，并生成JSON格式的消息，作为生产者发送给Kafka等系统的应用程序。

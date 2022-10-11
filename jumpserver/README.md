@@ -22,6 +22,11 @@ flush privileges;
 ```bash
 docker-compose up -d core
 ```
+需要等待几分钟才可以启动其他服务，因为启动 core 服务时，会初始化数据表，可以通过查看日志观察进度。
+
+```bash
+docker logs -f jms-core
+```
 
 5. 启动其余服务。
 ```bash

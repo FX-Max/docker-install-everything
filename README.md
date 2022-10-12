@@ -26,7 +26,7 @@ docker-compose up -d redis
 
 - apollo
 
-    简要说明： Apollo 是一款可靠的分布式配置管理中心，诞生于携程框架研发部，[Apollo](https://github.com/apolloconfig/apollo/)。
+    简要说明: [Apollo](https://github.com/apolloconfig/apollo/) 是一款可靠的分布式配置管理中心，诞生于携程框架研发部。
 
 - beanstalkd
 
@@ -50,7 +50,7 @@ docker-compose up -d redis
 
 - jenkins
 
-    简要说明:  [jenkins](https://github.com/jenkinsci/jenkins) 是最流行的可扩展的持续集成引擎。
+    简要说明: [jenkins](https://github.com/jenkinsci/jenkins) 是最流行的可扩展的持续集成引擎。
 
 - jira
 
@@ -82,7 +82,7 @@ docker-compose up -d redis
 
 - phpmyadmin
 
-    简要说明：[phpmyadmin](https://github.com/phpmyadmin/phpmyadmin) 是一款基于 Web 的 MySQL 数据库管理工具。
+    简要说明: [phpmyadmin](https://github.com/phpmyadmin/phpmyadmin) 是一款基于 Web 的 MySQL 数据库管理工具。
 
 - redis
 
@@ -94,7 +94,7 @@ docker-compose up -d redis
 
 - wikijs
 
-    简要说明： 自建开源的wiki/文档管理系统 [wiki.js](https://js.wiki/)。
+    简要说明: 自建开源的wiki/文档管理系统 [wiki.js](https://js.wiki/)。
 
 - wordpress
 
@@ -102,11 +102,11 @@ docker-compose up -d redis
 
 - yapi
 
-    简要说明： [YApi](https://github.com/YMFE/yapi) 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台。
+    简要说明: [YApi](https://github.com/YMFE/yapi) 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台。
 
 - Yearning
 
-	简要说明： [Yearning](https://github.com/cookieY/Yearning)，基于 Go 的开箱即用的MYSQL SQL审核工具。
+	简要说明: [Yearning](https://github.com/cookieY/Yearning)，基于 Go 的开箱即用的MYSQL SQL审核工具。
 
 
 ## 欢迎加入

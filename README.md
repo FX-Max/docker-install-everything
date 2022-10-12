@@ -60,6 +60,10 @@ docker-compose up -d redis
 
     简要说明: [JumpServer](https://github.com/jumpserver/jumpserver) 是广受欢迎的开源堡垒机。
 
+- jumpserver-all-in-one
+
+    简要说明: 一键部署 jumpserver 全套环境，不依赖外部服务。
+
 - Maxwell
 
     简要说明: [Maxwell](https://github.com/zendesk/maxwell)，一个能实时读取MySQL二进制日志Binlog，并生成JSON格式的消息，作为生产者发送给Kafka等系统的应用程序。

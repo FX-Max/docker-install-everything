@@ -1,0 +1,69 @@
+version: '3'
+services:
+  jumpserver:
+    image: jumpserver/jms_all:latest
+    container_name: jms-all
+#    restart: always
+    ports:
+      - 1080:80
+      - 12222:2222
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - BOOTSTRAP_TOKEN=${BOOTSTRAP_TOKEN}
+      - TARGETARCH=${TARGETARCH}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - COMPOSE_HTTP_TIMEOUT=${COMPOSE_HTTP_TIMEOUT}
+      - DOCKER_CLIENT_TIMEOUT=${DOCKER_CLIENT_TIMEOUT}
+      - DB_HOST=${MYSQL_HOST}
+      - DB_PORT=${MYSQL_PORT}
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_NAME=${MYSQL_DATABASE}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - ${VOLUME_DIR}/data/jumpserver:/opt/jumpserver/data
+      - ${VOLUME_DIR}/data/koko:/opt/koko/data
+      - ${VOLUME_DIR}/data/lion:/opt/lion/data
+    depends_on:
+      - mysql
+      - redis
+  mysql:
+    image: 'mysql:5.7'
+    container_name: jms-mysql
+#    restart: always
+    command: --character-set-server=utf8 --collation-server=utf8_general_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_DATABASE: '${MYSQL_DATABASE}'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+    ports:
+      - '${MYSQL_PORT}:3306'
+    healthcheck:
+      test: "mysql -h127.0.0.1 -P3306 -u${MYSQL_USER} -p${MYSQL_PASSWORD} -e 'SHOW DATABASES;'"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    volumes:
+      - ${VOLUME_DIR}/data/mysql:/var/lib/mysql
+  redis:
+    image: redis:6.0
+    container_name: jms-redis
+#    restart: always
+    command: redis-server --requirepass ${REDIS_PASSWORD} --loglevel warning --maxmemory-policy allkeys-lru
+    environment:
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: '${REDIS_PASSWORD}'
+    ports:
+      - '${REDIS_PORT}:6379'
+    volumes:
+      - ${VOLUME_DIR}/data/redis:/data
+    healthcheck:
+      test: "redis-cli -h 127.0.0.1 -p 6379 -a ${REDIS_PASSWORD} info Replication"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

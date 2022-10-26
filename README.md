@@ -88,6 +88,10 @@ docker-compose up -d redis
 
     简要说明：[phpmyadmin](https://github.com/phpmyadmin/phpmyadmin) 是一款基于 Web 的 MySQL 数据库管理工具。
 
+- rabbitmq
+
+    简要说明: [RabbitMQ](https://www.rabbitmq.com/) 是一款使用Erlang语言开发的，实现AMQP(高级消息队列协议)的开源消息中间件。
+
 - redis
 
     简要说明: 快速搭建 [redis](https://github.com/redis/redis) 服务。

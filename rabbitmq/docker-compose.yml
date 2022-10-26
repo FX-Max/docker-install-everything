@@ -1,0 +1,14 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3.10-management
+    container_name: rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+    volumes:
+      - './data/rabbitmq:/var/lib/rabbitmq/mnesia'
+#      - './conf/rabbitmq.config:/etc/rabbitmq/rabbitmq.config'

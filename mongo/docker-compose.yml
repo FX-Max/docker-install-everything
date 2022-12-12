@@ -10,6 +10,6 @@ services:
       - './log/mongodb:/var/log/mongodb'
       - './conf:/etc/mongo'
     environment:
-      TZ='Asia/Shanghai'
+      TZ: 'Asia/Shanghai'
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}

@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: cat-mysql
+    environment:
+      TZ: 'Asia/Shanghai'
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+    volumes:
+      - "./data/mysql:/var/lib/mysql"
+      - "./script/:/docker-entrypoint-initdb.d/"
+    ports:
+      - "3306:3306"
+    networks:
+      - network-cat
+
+  cat:
+    image: meituaninc/cat:3.0.1
+    container_name: cat-server
+    environment:
+      MYSQL_URL: cat-mysql
+      MYSQL_PORT: 3306
+      MYSQL_USERNAME: ${MYSQL_USER}
+      MYSQL_PASSWD: ${MYSQL_PASSWORD}
+      MYSQL_SCHEMA: ${MYSQL_DATABASE}
+      SERVER_IP: ${SERVER_IP}
+    volumes:
+      - "./log/cat:/data/applogs/cat"
+      - "./client.xml:/data/appdatas/cat/client.xml"
+      #  - "./datasources.xml:/data/appdatas/cat/datasources.xml"
+    command: /bin/sh -c './datasources.sh && catalina.sh run'
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    ports:
+      - "8880:8080"
+      - "2280:2280"
+    networks:
+      - network-cat
+
+networks:
+  network-cat:
+    driver: bridge

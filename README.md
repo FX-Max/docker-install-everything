@@ -125,3 +125,9 @@ docker-compose up -d redis
 ## 感谢关注
 
 如果项目对您有帮助，请帮忙点点小星星，谢谢。
+
+## Support
+
+IDE for this project is supported by [Jetbrains](https://jb.gg/OpenSourceSupport).
+
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png)](https://jb.gg/OpenSourceSupport)

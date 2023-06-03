@@ -1,0 +1,24 @@
+version: '3'
+services:
+  confluence:
+    image: cptactionhank/atlassian-confluence:latest
+    container_name: confluence
+    ports:
+      - "8090:8090"
+      - "8091:8091"
+#    restart: always
+    depends_on:
+      - db
+    volumes:
+      - ./log/confluence:/opt/atlassian/confluence/logs
+      - ./data/confluence:/var/atlassian/confluence
+  db:
+    image: postgres:latest
+    container_name: confluence-db
+    ports:
+      - "5432:5432"
+#    restart: always
+    environment:
+      - POSTGRES_PASSWORD=zvg786nadgz
+    volumes:
+      - ./data/pgsql:/var/lib/postgresql/data

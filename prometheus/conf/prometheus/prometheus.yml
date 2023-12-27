@@ -9,7 +9,7 @@ alerting:
  alertmanagers:
  - static_configs:
     - targets:
-        - "192.168.0.100:9093"
+        - "172.30.128.101:9093"
 
 rule_files:
   - /etc/prometheus/rules/*.rules
@@ -22,10 +22,5 @@ scrape_configs:
 
   - job_name: node
     static_configs:
-      - targets: ['192.168.0.103:9100','pushgateway:9091']
+      - targets: ['172.30.128.101:9100','172.30.128.101:9091']
 
-  - job_name: 'mysql-131'
-    static_configs:
-     - targets: ['192.168.0.131:9104']
-       labels:
-          instance: mysql

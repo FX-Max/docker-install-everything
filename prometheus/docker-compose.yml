@@ -55,5 +55,17 @@ services:
       - ./conf/alertmanager:/etc/alertmanager
       - ./data/prometheus/alertmanager_data:/var/lib/alertmanager
 
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    user: root
+#    restart: always
+    command:
+      - '--path.rootfs=/host'
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
 networks:
   net-prometheus:

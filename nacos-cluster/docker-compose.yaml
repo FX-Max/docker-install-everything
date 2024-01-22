@@ -1,0 +1,93 @@
+version: "3.8"
+
+x-nacos-common: &nacos-common
+  image: nacos/nacos-server:${NACOS_VERSION}
+  volumes:
+    - ./conf/application.properties:/home/nacos/conf/application.properties
+  env_file:
+    - ./env/nacos-hostname.env
+  restart: always
+  depends_on:
+    mysql:
+      condition: service_healthy
+  healthcheck:
+    test: ["CMD-SHELL", "curl -f --head --connect-timeout 5 http://localhost:8848/nacos || exit 1"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 40s
+
+services:
+  nacos1:
+    <<: *nacos-common
+    hostname: nacos1
+    container_name: nacos1
+    volumes:
+      - /data/nacos/cluster-logs/nacos1:/home/nacos/logs
+    ports:
+      - "7848:7848"
+      - "8848:8848"
+      - "9868:9848"
+      - "9850:9849"
+
+  nacos2:
+    <<: *nacos-common
+    hostname: nacos2
+    container_name: nacos2
+    volumes:
+      - /data/nacos/cluster-logs/nacos2:/home/nacos/logs
+    ports:
+      - "7849:7848"
+      - "8849:8848"
+      - "9869:9848"
+      - "9851:9849"
+
+  nacos3:
+    <<: *nacos-common
+    hostname: nacos3
+    container_name: nacos3
+    volumes:
+      - /data/nacos/cluster-logs/nacos3:/home/nacos/logs
+    ports:
+      - "7850:7848"
+      - "8850:8848"
+      - "9870:9848"
+      - "9852:9849"
+
+  mysql:
+    container_name: mysql
+    image: freemankevin/nacos-mysql:v8
+    restart: unless-stopped
+    env_file:
+      - ./env/mysql.env
+    volumes:
+      - /data/nacos/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+  nginx:
+    image: nginx:1.25.3-alpine
+    hostname: nginx
+    container_name: nginx-nacos
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /data/nacos/nginx/logs:/var/log/nginx:rw 
+    ports:
+      - "38848:8848"
+      #- "39848:9848"
+    depends_on:
+      - nacos1
+      - nacos2
+      - nacos3
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f --head --connect-timeout 5 http://localhost:8848/nacos || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

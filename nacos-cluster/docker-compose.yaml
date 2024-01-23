@@ -27,8 +27,8 @@ services:
     ports:
       - "7848:7848"
       - "8848:8848"
-      - "9868:9848"
-      - "9850:9849"
+      - "9848:9848"
+      - "9849:9849"
 
   nacos2:
     <<: *nacos-common
@@ -37,10 +37,10 @@ services:
     volumes:
       - /data/nacos/cluster-logs/nacos2:/home/nacos/logs
     ports:
-      - "7849:7848"
-      - "8849:8848"
-      - "9869:9848"
-      - "9851:9849"
+      - "17848:7848"
+      - "18848:8848"
+      - "19848:9848"
+      - "19849:9849"
 
   nacos3:
     <<: *nacos-common
@@ -49,10 +49,10 @@ services:
     volumes:
       - /data/nacos/cluster-logs/nacos3:/home/nacos/logs
     ports:
-      - "7850:7848"
-      - "8850:8848"
-      - "9870:9848"
-      - "9852:9849"
+      - "27848:7848"
+      - "28848:8848"
+      - "29848:9848"
+      - "29849:9849"
 
   mysql:
     container_name: mysql
@@ -79,7 +79,7 @@ services:
       - /data/nacos/nginx/logs:/var/log/nginx:rw 
     ports:
       - "38848:8848"
-      #- "39848:9848"
+      - "39848:9848"
     depends_on:
       - nacos1
       - nacos2

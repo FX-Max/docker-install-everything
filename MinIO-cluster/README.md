@@ -2,46 +2,156 @@
 
 ## Usage
 
+> 参考：[https://github.com/minio/minio/blob/master/docs/orchestration/docker-compose/docker-compose.yaml](https://github.com/minio/minio/blob/master/docs/orchestration/docker-compose/docker-compose.yaml)
+
+
+
 ```bash
 cp .env.example .env
-docker-compose up -d minio1 minio2 minio3 minio4
+docker-compose up -d 
 ```
 
-一般会使用nginx代理访问该服务，下面为对应的 nginx 配置实例。
-访问： [http://minio.example.com](http://minio.example.com)，使用 .env 中的默认用户`miniouser`，密码`miniopassword`登录。
 
+
+**Examples of different disk numbers**
+
+- one disk
+
+```yaml
+services:
+  minio1:
+    <<: *minio-common
+    hostname: minio1
+    volumes:
+      - /mnt/disk1/minio1/data1:/data1
+      - /mnt/disk1/minio1/data2:/data2
+
+  minio2:
+    <<: *minio-common
+    hostname: minio2
+    volumes:
+      - /mnt/disk1/minio2/data1:/data1
+      - /mnt/disk1/minio2/data2:/data2
+
+  minio3:
+    <<: *minio-common
+    hostname: minio3
+    volumes:
+      - /mnt/disk1/minio3/data1:/data1
+      - /mnt/disk1/minio3/data2:/data2
+
+  minio4:
+    <<: *minio-common
+    hostname: minio4
+    volumes:
+      - /mnt/disk1/minio4/data1:/data1
+      - /mnt/disk1/minio4/data2:/data2
 ```
 
-upstream minio {
-  server localhost:9001;
-  server localhost:9002;
-  server localhost:9003;
-  server localhost:9004;
-}
 
-server {
- listen 80;
- server_name minio.example.com;
 
- ignore_invalid_headers off;
- client_max_body_size 0;
- proxy_buffering off;
+- two disks
 
- location / {
-   proxy_set_header X-Real-IP $remote_addr;
-   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-   proxy_set_header X-Forwarded-Proto $scheme;
-   proxy_set_header Host $http_host;
+```yaml
+services:
+  minio1:
+    <<: *minio-common
+    hostname: minio1
+    volumes:
+      - /mnt/disk1/part1:/data1
+      - /mnt/disk2/part1:/data2
 
-   proxy_connect_timeout 300;
-   # Default is HTTP/1, keepalive is only enabled in HTTP/1.1
-   proxy_http_version 1.1;
-   proxy_set_header Connection "";
-   chunked_transfer_encoding off;
+  minio2:
+    <<: *minio-common
+    hostname: minio2
+    volumes:
+      - /mnt/disk1/part2:/data1
+      - /mnt/disk2/part2:/data2
 
-   proxy_pass http://minio;
- }
-}
+  minio3:
+    <<: *minio-common
+    hostname: minio3
+    volumes:
+      - /mnt/disk1/part3:/data1
+      - /mnt/disk2/part3:/data2
+
+  minio4:
+    <<: *minio-common
+    hostname: minio4
+    volumes:
+      - /mnt/disk1/part4:/data1
+      - /mnt/disk2/part4:/data2
 ```
 
-参考：[setup-nginx-proxy-with-minio](https://docs.min.io/docs/setup-nginx-proxy-with-minio)
+
+
+- four disks
+
+```yaml
+services:
+  minio1:
+    <<: *minio-common
+    hostname: minio1
+    volumes:
+      - /mnt/disk1/part1:/data1
+      - /mnt/disk2/part1:/data2
+
+  minio2:
+    <<: *minio-common
+    hostname: minio2
+    volumes:
+      - /mnt/disk1/part2:/data1
+      - /mnt/disk2/part2:/data2
+
+  minio3:
+    <<: *minio-common
+    hostname: minio3
+    volumes:
+      - /mnt/disk3/part1:/data1
+      - /mnt/disk4/part1:/data2
+
+  minio4:
+    <<: *minio-common
+    hostname: minio4
+    volumes:
+      - /mnt/disk3/part2:/data1
+      - /mnt/disk4/part2:/data2
+```
+
+
+
+- eight disks
+
+```yaml
+services:
+  minio1:
+    <<: *minio-common
+    hostname: minio1
+    volumes:
+      - /mnt/disk1:/data1
+      - /mnt/disk2:/data2
+
+  minio2:
+    <<: *minio-common
+    hostname: minio2
+    volumes:
+      - /mnt/disk3:/data1
+      - /mnt/disk4:/data2
+
+  minio3:
+    <<: *minio-common
+    hostname: minio3
+    volumes:
+      - /mnt/disk5:/data1
+      - /mnt/disk6:/data2
+
+  minio4:
+    <<: *minio-common
+    hostname: minio4
+    volumes:
+      - /mnt/disk7:/data1
+      - /mnt/disk8:/data2
+```
+
+
+
